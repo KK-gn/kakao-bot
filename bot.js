@@ -2,8 +2,8 @@ const { TalkClient, AuthApiClient } = require('node-kakao');
 const http = require('http');
 
 // ⚠️ 본인 카카오 계정 정보 입력 (오타가 없는지 꼭! 다시 확인해주세요)
-const KAKAO_EMAIL = `net_dolph@naver.com`; 
-const KAKAO_PASSWORD = `tk4$fkdgo`;
+const KAKAO_EMAIL = `wkdrnsdl130@gmail.com`; 
+const KAKAO_PASSWORD = `qhtdyd112`;
 
 const DEVICE_UUID = "render_bot_device_unique_9988"; 
 const DEVICE_NAME = "Render_Bot_Server";

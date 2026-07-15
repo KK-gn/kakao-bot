@@ -6,6 +6,6 @@
     "start": "node bot.js"
   },
   "dependencies": {
-    "@storyofshi/kakaotalk-bot": "^1.0.0"
+    "kakaotalk-bot": "^1.0.0"
   }
 }

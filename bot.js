@@ -1,14 +1,14 @@
 const { TalkClient, AuthApiClient } = require('node-kakao');
 const http = require('http');
 
-// ⚠️ 본인 카카오 계정 정보 입력 (오타가 없는지 꼭! 다시 확인해주세요)
-const KAKAO_EMAIL = `wkdrnsdl130@gmail.com`; 
-const KAKAO_PASSWORD = `qhtdyd112`;
+// ⚠️ 새로운 봇 전용 구글 계정 정보 자동 적용
+const KAKAO_EMAIL = "wkdrnsdl130@gmail.com"; 
+const KAKAO_PASSWORD = "qhtdyd112";
 
 const DEVICE_UUID = "render_bot_device_unique_9988"; 
 const DEVICE_NAME = "Render_Bot_Server";
 
-// 💡 서버가 켜지자마자 가장 먼저 웹서버부터 띄워서 Render가 강제 종료하는 것을 원천 차단합니다.
+// 💡 웹서버를 가장 먼저 띄워 Render가 절대 프로세스를 종료시키지 못하게 원천 차단합니다.
 const PORT = process.env.PORT || 3000;
 http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -25,7 +25,7 @@ async function startBot() {
     try {
         const client = new TalkClient();
 
-        // 1. 메시지 수신부
+        // 1. 메시지 수신부 (인증 및 기본 핑퐁)
         client.on('message', async (chat) => {
             const messageText = chat.text.trim();
 
@@ -57,7 +57,7 @@ async function startBot() {
         });
 
         // 2. 로그인 시도
-        console.log("[2단계] 카카오톡 로그인 시도 중...");
+        console.log("[2단계] 새로운 Gmail 계정으로 로그인 시도 중...");
         authApi = await AuthApiClient.create(DEVICE_NAME, DEVICE_UUID);
         const loginRes = await authApi.login({
             email: KAKAO_EMAIL,
@@ -83,13 +83,12 @@ async function startBot() {
         }
 
     } catch (err) {
-        // 💡 에러가 나서 튕기더라도 왜 튕겼는지 콘솔에 명확하게 범인을 박아줍니다.
-        console.log("🚨 [치명적 에러 발생] 서버가 다운된 원인 분석:");
+        console.log("🚨 [로그인 에러 발생] 서버가 꺼지지 않게 안전 처리 되었습니다.");
         console.error(err);
     }
 }
 
-// 딜레이를 살짝 주어 웹서버가 확실히 켜진 뒤 카카오 로그인을 하도록 합니다.
+// 3초의 딜레이를 주어 안정성을 높입니다.
 setTimeout(() => {
     startBot();
-}, 1000);
+}, 3000);
